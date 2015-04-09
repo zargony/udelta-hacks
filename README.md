@@ -31,6 +31,8 @@ Managing the firmware does not require a hardware programmer as long as the CDC 
 - Upload new firmware:  
   `avrdude -c avr109 -P /dev/cu.usbmodem1421 -p at90usb1286 -D -U flash:w:firmware.hex`
 
+Note the `-D` option which prevents the chip erase that is normally done before writing the flash. This makes sure the bootloader stays intact.
+
 ### EEPROM
 
 The eeprom contains persisted firmware settings (like hardware calibration values).
