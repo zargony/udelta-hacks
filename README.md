@@ -40,6 +40,11 @@ The eeprom contains persisted firmware settings (like hardware calibration value
 - Download (backup) eeprom: `avrdude -c avr109 -P /dev/cu.usbmodem1421 -p at90usb1286 -U eeprom:r:eeprom.hex:i`
 - Upload (restore) eeprom: `avrdude -c avr109 -P /dev/cu.usbmodem1421 -p at90usb1286 -U eeprom:w:eeprom.hex`
 
+### All in one
+
+All in one programming (erase, install bootloader, install firmware, restore eeprom):  
+`avrdude -c usbasp -p at90usb1286 -U flash:w:BootloaderCDC.hex -U flash:w:firmware.hex -U eeprom:w:eeprom.hex`
+
 
 [AT90USB1286]: http://www.atmel.com/devices/at90usb1286.aspx
 [AtmelICE.kext]: http://www.avrfreaks.net/comment/1421981#comment-1421981
