@@ -13,7 +13,7 @@ AVR microcontrollers have three fuse bytes: Low fuse (lfuse), high fuse (hfuse) 
 - Set fuse:  
   `avrdude -c usbasp -p at90usb1286 -U lfuse:w:0xDE:m`
 
-The Teensylu board by default comes with fuses:  
+The µDelta Teensylu board by default comes with fuses:  
 lfuse: `0xDE` / hfuse: `0xDB` / efuse: `0xF3`
 
 ### Bootloader
