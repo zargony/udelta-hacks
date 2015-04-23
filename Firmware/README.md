@@ -45,6 +45,5 @@ All in one programming (erase, install bootloader, install firmware, restore eep
 
 
 [AT90USB1286]: http://www.atmel.com/devices/at90usb1286.aspx
-[AtmelICE.kext]: http://www.avrfreaks.net/comment/1421981#comment-1421981
 [fusecalc]: http://www.engbedded.com/fusecalc/
 [AVR109]: http://www.atmel.com/images/doc1644.pdf
