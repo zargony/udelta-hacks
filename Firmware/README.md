@@ -1,10 +1,8 @@
-# Reprap µDelta hacks
+# RepRap µDelta Firmware
 
-## Microcontroller
+The µDelta utilizes a Teensylu board with an [AT90USB1286] microcontroller. By opening the ALE/HWB jumper while resetting, the board starts the CDC bootloader which can be used to update the firmware over USB. There's also a 6-pin header SPI interface which can be used to update the microcontroller (firmware, bootloader, fuses) by connecting an AVR programmer.
 
-The Teensylu board utilizes an [AT90USB1286] microcontroller. By opening the ALE/HWB jumper while resetting, the board starts the CDC bootloader which can be used to update the firmware over USB. There's also a 6-pin header SPI interface which can be used to update the microcontroller (firmware, bootloader, fuses) by connecting an AVR programmer.
-
-### Fuses
+## Fuses
 
 AVR microcontrollers have three fuse bytes: Low fuse (lfuse), high fuse (hfuse) and extended fuse (efuse). Fuses can only be set with a hardware programmer (like the JTAGICE3). Fuse bytes can be calculated using the [Engbedded Fuse Calculator][fusecalc]. **Setting wrong fuse bytes can permanently brick the device!**
 
@@ -16,13 +14,13 @@ AVR microcontrollers have three fuse bytes: Low fuse (lfuse), high fuse (hfuse) 
 The µDelta Teensylu board by default comes with fuses:  
 lfuse: `0xDE` / hfuse: `0xDB` / efuse: `0xF3`
 
-### Bootloader
+## Bootloader
 
 To wipe the flash and eeprom memory and upload the bootloader: `avrdude -c usbasp -p at90usb1286 -U flash:w:BootloaderCDC.hex`
 
 Remember to backup eeprom settings before.
 
-### Firmware
+## Firmware
 
 Managing the firmware does not require a hardware programmer as long as the CDC bootloader is intact. After opening the ALE jumper and resetting the board, it can be programmed via USB by using the [AVR109] self-programming mechanism (which is *much* faster than SPI).
 
@@ -33,14 +31,14 @@ Managing the firmware does not require a hardware programmer as long as the CDC 
 
 Note the `-D` option which prevents the chip erase that is normally done before writing the flash. This makes sure the bootloader stays intact.
 
-### EEPROM
+## EEPROM
 
 The eeprom contains persisted firmware settings (like hardware calibration values).
 
 - Download (backup) eeprom: `avrdude -c avr109 -P /dev/cu.usbmodem1421 -p at90usb1286 -U eeprom:r:eeprom.hex:i`
 - Upload (restore) eeprom: `avrdude -c avr109 -P /dev/cu.usbmodem1421 -p at90usb1286 -U eeprom:w:eeprom.hex`
 
-### All in one
+## All in one
 
 All in one programming (erase, install bootloader, install firmware, restore eeprom):  
 `avrdude -c usbasp -p at90usb1286 -U flash:w:BootloaderCDC.hex -U flash:w:firmware.hex -U eeprom:w:eeprom.hex`
